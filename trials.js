@@ -52,17 +52,57 @@ function showPhoneNums(customerPhones) {
 
 // Create an empty map of transactions
 
+const transactions = new Map();
 
 // Add function to add transactions
-
+function addTransaction(date, amount) {
+    transactions.set(date, amount);
+}
 
 // Use the function to add transactions
 
+addTransaction("May-2", -500);
+addTransaction("May-13", +1200);
+addTransaction("May-15", -100);
+addTransaction("May-21", -359);
+addTransaction("May-29", +2200);
 
 // Add function to show balance status
 
+function showBalanceStatus(amount) {
+    console.log("Balance:" + amount);
+    if (amount < 0) {
+        console.log("YOU ARE OVERDRAWN");
+    } else if (0 < amount < 20) {
+        console.log("Warning: You are close to zero balance");
+    } else {
+        console.log("Thank you for your business.");
+    }
+}
 
 // Add function to show transactions
+
+function showTransactions(transMap, initBalance) {
+    let type;
+    let finalBalance = initBalance;
+    console.log(initBalance);
+    for (transaction in transMap) {
+        if(transaction[1] < 0) {
+            type = "withdrawal";
+        } else {
+            type = "deposit";
+        }
+        finalBalance = finalBalance + transaction[1];
+        console.log(transaction[0]+" " + type + " "
+                    + transaction[1] + " " + finalBalance);
+    }
+    console.log(finalBalance);
+    if (finalBalance < 0) {
+        finalBalance = finalBalance + 25;
+    }
+    showBalanceStatus(finalBalance);
+}
+
 
 
 // ///////////////////////////////////////////////////////
